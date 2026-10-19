@@ -72,7 +72,7 @@ function renderAuditSummary(data, httpStatus) {
   l3.appendChild(createEl("span", "status-badge " + badgeClass, bqStatus));
 
   const l4 = createEl("div", "audit-line", "BigQuery Job ID (Billed to heygreg-telco-demo): " + (bq.job_id || "None (Blocked before job execution)"));
-  const l5 = createEl("div", "audit-line", "Rows Visible After RLS: " + String(bq.row_count ?? 0) + " of 8 total GFS accounts");
+  const l5 = createEl("div", "audit-line", "Rows Visible After RLS: " + String(bq.row_count ?? 0) + " of 8 total [DEMO] HLF accounts");
 
   container.appendChild(l1);
   container.appendChild(l2);

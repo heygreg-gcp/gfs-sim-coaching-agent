@@ -1,4 +1,4 @@
-"""Google Drive v3 tool for retrieving GFS Sales Coaching Playbooks using the caller's 3LO OAuth token.
+"""Google Drive v3 tool for retrieving [DEMO] HarvestLine Foodservice (HLF) Sales Coaching Playbooks using the caller's 3LO OAuth token.
 
 Follows the Bytes-First Decoding guardrail (`raw_bytes.decode("utf-8", errors="ignore")`)
 and natively enforces Google Drive per-document sharing ACLs.
@@ -40,8 +40,8 @@ def load_configured_drive_docs() -> List[Dict[str, str]]:
     return data.get("drive_docs", [])
 
 
-def fetch_gfs_coaching_playbooks(user_token: str) -> Dict[str, Any]:
-    """Fetches and exports the configured GFS Coaching Google Docs using the caller's OAuth token.
+def fetch_hlf_coaching_playbooks(user_token: str) -> Dict[str, Any]:
+    """Fetches the configured [DEMO] HarvestLine Foodservice Coaching Docs using the caller's OAuth token.
 
     Because the request uses `Authorization: Bearer <user_token>`, Google Drive v3 enforces
     the exact file-level permissions granted to that user/service account:
@@ -59,7 +59,6 @@ def fetch_gfs_coaching_playbooks(user_token: str) -> Dict[str, Any]:
             audience = doc_meta.get("audience", "Unknown")
             gdoc_url = doc_meta.get("gdoc_url", f"https://docs.google.com/document/d/{doc_id}/edit")
 
-            # Fetch Drive v3 resource metadata/content using caller's OAuth token (enforcing live Drive ACLs)
             file_url = f"https://www.googleapis.com/drive/v3/files/{doc_id}"
             resp = client.get(file_url, params={"fields": "id,name,description,mimeType"}, headers=headers)
 

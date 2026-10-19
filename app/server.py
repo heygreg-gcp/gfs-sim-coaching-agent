@@ -1,4 +1,4 @@
-"""FastAPI Server for GFS Sales Insight Manager (SIM) A2A Endpoint + Interactive Persona-Switcher Demo Console.
+"""FastAPI Server for [DEMO] HarvestLine Foodservice (HLF) Sales Insight Manager (SIM) A2A Endpoint + Interactive Persona-Switcher Demo Console.
 
 Enforces mandatory web security controls:
 - Strict Content-Security-Policy (`default-src 'self'`), `X-Content-Type-Options: nosniff`,
@@ -12,11 +12,11 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 import uuid
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
-from app.agent import GFSSalesInsightCoachAgent
+from app.agent import HLFSalesInsightCoachAgent
 from app.auth import (
     AuthError,
     PERSONA_SERVICE_ACCOUNTS,
@@ -28,7 +28,7 @@ from app.tools_bq import ALLOWED_TABLES, BILLING_PROJECT_ID, TableAllowlistError
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 
 app = FastAPI(
-    title="GFS Sales Insight Manager (SIM) Coaching Agent",
+    title="[DEMO] HarvestLine Foodservice (HLF) — Sales Insight Manager (SIM) Coaching Agent",
     description="Cross-Project BigQuery + Google Drive ADK/A2A Agent with End-User 3LO OAuth Passthrough",
     version="1.0.0",
 )
@@ -67,7 +67,7 @@ class ChatTurnRequest(BaseModel):
 async def get_agent_card() -> Dict[str, Any]:
     """Returns the A2A Agent Card for registering the agent in Gemini Enterprise."""
     return {
-        "name": "GFS Sales Insight Manager (SIM) Coaching Agent",
+        "name": "[DEMO] HarvestLine Foodservice (HLF) — Sales Insight Manager (SIM) Coaching Agent",
         "description": (
             "Combines cross-project BigQuery sales/cold-chain telemetry with Google Drive sales coaching "
             "playbooks in a single turn while enforcing per-user 3LO OAuth, BigQuery Row-Level Security (RLS), "
@@ -99,9 +99,9 @@ async def list_personas() -> Dict[str, Any]:
         + [
             {
                 "id": "NO_AUTH",
-                "name": "Broken Registration — Empty authorizationConfig (Case A-iii)",
+                "name": "[DEMO] Broken Registration — Empty authorizationConfig (Case A-iii)",
                 "email": "(No Authorization Header Sent by GE)",
-                "role_summary": "Reproduces GFS's 'Sales Details Test Agent' & 'test Agent' in b/570110182",
+                "role_summary": "Reproduces Case A-iii where an agent registered with empty authorizationConfig '{}' receives zero credentials",
             }
         ]
     }
@@ -117,10 +117,8 @@ async def run_persona_chat(req: ChatTurnRequest, request: Request) -> JSONRespon
             )
 
         if req.persona_id == "NO_AUTH":
-            # Simulate Case A-iii where GE sends empty headers={}
             extract_user_oauth_token({})
 
-        # If caller supplied an explicit Bearer token in headers, honor it; otherwise mint for the selected persona
         incoming_headers = dict(request.headers)
         if "x-goog-agent-user-authorization" in incoming_headers or "authorization" in incoming_headers:
             user_token, source_header = extract_user_oauth_token(incoming_headers)
@@ -130,7 +128,7 @@ async def run_persona_chat(req: ChatTurnRequest, request: Request) -> JSONRespon
             simulated_headers = {req.simulated_header_mode: f"Bearer {minted_token}"}
             user_token, source_header = extract_user_oauth_token(simulated_headers)
 
-        agent = GFSSalesInsightCoachAgent()
+        agent = HLFSalesInsightCoachAgent()
         result = agent.run_coaching_turn(
             user_prompt=req.prompt,
             user_token=user_token,
@@ -196,7 +194,7 @@ async def a2a_message_stream(request: Request) -> JSONResponse:
             prompt = part["text"].strip()[:2000]
             break
 
-    agent = GFSSalesInsightCoachAgent()
+    agent = HLFSalesInsightCoachAgent()
     turn = agent.run_coaching_turn(
         user_prompt=prompt,
         user_token=user_token,

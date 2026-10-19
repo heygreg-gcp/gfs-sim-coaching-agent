@@ -7,7 +7,7 @@ from google.cloud import bigquery
 from google.oauth2 import credentials as oauth2_credentials
 
 BILLING_PROJECT_ID = "heygreg-telco-demo"
-PRIMARY_TABLE = "heygreg-telco-demo.gfs_sim_sales.account_performance"
+PRIMARY_TABLE = "heygreg-telco-demo.hlf_sim_sales.account_performance"
 CROSS_PROJECT_PUBLIC_TABLE = "bigquery-public-data.thelook_ecommerce.users"
 
 ALLOWED_TABLES = frozenset({
@@ -91,7 +91,7 @@ def classify_bq_error(error_message: str) -> Dict[str, str]:
     }
 
 
-def query_gfs_sales_performance(
+def query_hlf_sales_performance(
     user_token: str,
     territory_filter: Optional[str] = None,
     include_rebate_margin: bool = False,
@@ -100,7 +100,7 @@ def query_gfs_sales_performance(
     """Executes a parameterized cross-project BigQuery query using the caller's 3LO OAuth token.
 
     - Bills `bigquery.jobs.create` to `heygreg-telco-demo` (Agent Host Project).
-    - Joins `heygreg-telco-demo.gfs_sim_sales.account_performance` with `bigquery-public-data.thelook_ecommerce.users`
+    - Joins `heygreg-telco-demo.hlf_sim_sales.account_performance` with `bigquery-public-data.thelook_ecommerce.users`
       (Cross-Project Data Project).
     - Natively enforces BigQuery Row-Level Security (RLS) and Column-Level Policy Tags (CLS) on the caller's identity.
     """
@@ -164,8 +164,6 @@ def query_gfs_sales_performance(
             and include_rebate_margin
             and auto_fallback_on_cls_denial
         ):
-            # Automatically retry without the policy-tagged column so the user still gets non-sensitive KPIs
-            # while surfacing the exact policy-tag denial audit record!
             fallback_sql = _build_sql(with_margin=False)
             validate_table_allowlist(fallback_sql)
             retry_job = client.query(fallback_sql, job_config=job_config, location="US")

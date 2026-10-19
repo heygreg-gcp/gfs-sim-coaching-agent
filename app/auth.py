@@ -1,4 +1,4 @@
-"""Dual-header 3LO End-User OAuth token extraction and persona token minting for GFS SIM Agent.
+"""Dual-header 3LO End-User OAuth token extraction and persona token minting for [DEMO] HarvestLine Foodservice SIM Agent.
 
 Matches Gemini Enterprise (Dolphin) behavior in a2a_agent.py:1475-1551:
 - Agent Engine V2 URLs move the user's 3LO OAuth token to `X-Goog-Agent-User-Authorization`
@@ -16,25 +16,25 @@ PROJECT_ID = "heygreg-telco-demo"
 PERSONA_SERVICE_ACCOUNTS = {
     "P1": {
         "id": "P1",
-        "name": "National VP of Sales (Full Access)",
+        "name": "[DEMO] National VP of Sales (Full Access)",
         "email": f"ge-test-p1@{PROJECT_ID}.iam.gserviceaccount.com",
-        "role_summary": "All Sales Territories + Supplier Rebate Policy Tag + All Drive Playbooks (incl. Confidential)",
+        "role_summary": "All Sales Territories + Supplier Rebate Policy Tag + All [DEMO] Drive Playbooks (incl. Confidential)",
     },
     "P4": {
         "id": "P4",
-        "name": "Midwest District Sales Manager (RLS Scoped)",
+        "name": "[DEMO] Midwest District Sales Manager (RLS Scoped)",
         "email": f"ge-test-p4@{PROJECT_ID}.iam.gserviceaccount.com",
-        "role_summary": "RLS Restricted to 'Organic' Territory Only + Standard Drive Playbook Only (Confidential Drive Doc Hidden)",
+        "role_summary": "RLS Restricted to 'Organic' Territory Only + Standard [DEMO] Drive Playbook Only (Confidential Drive Doc Hidden)",
     },
     "P3": {
         "id": "P3",
-        "name": "Sales Enablement Analyst (CLS Blocked on Margin)",
+        "name": "[DEMO] Sales Enablement Analyst (CLS Blocked on Margin)",
         "email": f"ge-test-p3@{PROJECT_ID}.iam.gserviceaccount.com",
-        "role_summary": "All Territories, NO Fine-Grained Reader on supplier_rebate_margin_pct Policy Tag + Standard Drive Playbook",
+        "role_summary": "All Territories, NO Fine-Grained Reader on supplier_rebate_margin_pct Policy Tag + Standard [DEMO] Drive Playbook",
     },
     "P6": {
         "id": "P6",
-        "name": "Unscoped GE User (Zero BQ / Zero Drive Grants)",
+        "name": "[DEMO] Unscoped GE User (Zero BQ / Zero Drive Grants)",
         "email": f"ge-test-p6@{PROJECT_ID}.iam.gserviceaccount.com",
         "role_summary": "discoveryengine.agentspaceUser ONLY — Zero BigQuery jobUser/dataViewer & Zero Drive Access",
     },

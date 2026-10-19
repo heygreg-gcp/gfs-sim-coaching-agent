@@ -1,4 +1,4 @@
-"""Unit tests for GFS SIM Coaching Agent auth, BigQuery allowlist/error classifier, and Drive tools."""
+"""Unit tests for [DEMO] HarvestLine Foodservice (HLF) SIM Coaching Agent auth, BigQuery allowlist/error classifier, and Drive tools."""
 
 import pytest
 
@@ -44,12 +44,12 @@ def test_validate_table_allowlist_allows_curated_cross_project_tables():
     """Curated SIM tables in heygreg-telco-demo and bigquery-public-data must pass allowlist check."""
     sql = """
     SELECT a.account_id, u.country
-    FROM `heygreg-telco-demo.gfs_sim_sales.account_performance` AS a
+    FROM `heygreg-telco-demo.hlf_sim_sales.account_performance` AS a
     JOIN `bigquery-public-data.thelook_ecommerce.users` AS u
       ON a.public_user_id = u.id
     """
     tables = validate_table_allowlist(sql)
-    assert "heygreg-telco-demo.gfs_sim_sales.account_performance" in tables
+    assert "heygreg-telco-demo.hlf_sim_sales.account_performance" in tables
     assert "bigquery-public-data.thelook_ecommerce.users" in tables
 
 
@@ -79,20 +79,20 @@ def test_classify_bq_error_distinguishes_vpc_sc_policy_tag_and_iam():
     assert job_err["category"] == "JOB_USER_PERMISSION_DENIED"
 
     ds_err = classify_bq_error(
-        "Access Denied: Table heygreg-telco-demo:gfs_sim_sales.account_performance: User does not have permission to query table"
+        "Access Denied: Table heygreg-telco-demo:hlf_sim_sales.account_performance: User does not have permission to query table"
     )
     assert ds_err["category"] == "DATASET_ACCESS_DENIED"
 
 
 def test_decode_drive_bytes_and_filter_playbooks():
     """Bytes-first decoding guardrail and per-user Drive ACL filtering."""
-    raw = b"GFS Coaching Playbook \xe2\x80\x94 Drop Size Recovery\nStep 1: Audit cold chain."
+    raw = b"[DEMO] HarvestLine Coaching Playbook \xe2\x80\x94 Drop Size Recovery\nStep 1: Audit cold chain."
     decoded = decode_drive_bytes(raw)
     assert "Drop Size Recovery" in decoded
 
     docs = [
-        {"id": "doc1", "title": "Standard Coaching", "status_code": 200, "content": "Coach rep on drop size"},
-        {"id": "doc2", "title": "Confidential Rebates", "status_code": 403, "content": ""},
+        {"id": "doc1", "title": "[DEMO] Standard Coaching", "status_code": 200, "content": "Coach rep on drop size"},
+        {"id": "doc2", "title": "[DEMO] Confidential Rebates", "status_code": 403, "content": ""},
     ]
     accessible, denied = filter_accessible_playbooks(docs)
     assert len(accessible) == 1

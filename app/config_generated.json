@@ -1,13 +1,13 @@
 {
   "project_id": "heygreg-telco-demo",
-  "dataset_id": "gfs_sim_sales",
+  "dataset_id": "hlf_sim_sales",
   "table_id": "account_performance",
   "policy_tag": "projects/heygreg-telco-demo/locations/us/taxonomies/3838347283155594953/policyTags/499965283194771155",
   "drive_docs": [
     {
-      "doc_id": "1bdo9KzzJSktcIn_qAP7cAG6DPENIcLc3",
+      "doc_id": "1toyz3Z-0hBEeVN3_X-TxMM3z09k011LS",
       "gdoc_url": "https://docs.google.com/document/d/1KP1umCeq025JOg86FJEc3N4eE9KM9LGVMZP26J-LHsI/edit",
-      "title": "GFS Sales Coaching Playbook: Churn Recovery & Cold-Chain Service Drops",
+      "title": "[DEMO] HarvestLine Foodservice \u2014 Sales Coaching Playbook: Churn Recovery & Cold-Chain Drops",
       "audience": "Standard Coaching Playbook (Shared with P1, P3, P4; Denied to P6)",
       "shared_with": [
         "ge-test-p1@heygreg-telco-demo.iam.gserviceaccount.com",
@@ -17,9 +17,9 @@
       ]
     },
     {
-      "doc_id": "1Ds3_K-voiw0gq8wA3eFsKqwNfdWzqYeW",
+      "doc_id": "1JPh7IZRhkXJljPqucm9edJ9QmWZSLDYa",
       "gdoc_url": "https://docs.google.com/document/d/1WhoC6UHXb87Hi2HrpFGwA1WaBBnQn3t7hoAP4uvBEmc/edit",
-      "title": "GFS Executive Margin & Supplier Rebate Negotiation Guide [CONFIDENTIAL]",
+      "title": "[DEMO] HarvestLine Foodservice \u2014 Executive Margin & Supplier Rebate Guide [CONFIDENTIAL]",
       "audience": "Executive Confidential Playbook (Shared ONLY with P1; Denied to P3, P4, P6)",
       "shared_with": [
         "ge-test-p1@heygreg-telco-demo.iam.gserviceaccount.com",

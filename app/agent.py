@@ -1,4 +1,4 @@
-"""GFS Sales Insight Manager (SIM) Unified Coaching Agent (Cross-Project BigQuery + Google Drive).
+"""[DEMO] HarvestLine Foodservice (HLF) — Sales Insight Manager (SIM) Unified Coaching Agent (Cross-Project BigQuery + Google Drive).
 
 Follows the `deploy_enterprise_agents` Reference Architecture:
 1. Compile-time injected global constants
@@ -16,22 +16,22 @@ from app.tools_bq import (
     BILLING_PROJECT_ID,
     CROSS_PROJECT_PUBLIC_TABLE,
     PRIMARY_TABLE,
-    query_gfs_sales_performance,
+    query_hlf_sales_performance,
 )
-from app.tools_drive import fetch_gfs_coaching_playbooks
+from app.tools_drive import fetch_hlf_coaching_playbooks
 
 GCP_PROJECT_ID = "heygreg-telco-demo"
 GCP_LOCATION = "us-central1"
 MODEL_ID = "gemini-2.5-flash"
 
-logger = logging.getLogger("gfs_sim_coaching_agent")
+logger = logging.getLogger("hlf_sim_coaching_agent")
 if not logger.handlers:
     handler = logging.StreamHandler()
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
 
-class GFSSalesInsightCoachAgent:
+class HLFSalesInsightCoachAgent:
     """Unified ADK / A2A Sales Insight Manager (SIM) Agent combining Cross-Project BQ + Google Drive."""
 
     def __init__(self) -> None:
@@ -60,7 +60,7 @@ class GFSSalesInsightCoachAgent:
     ) -> str:
         """Builds a structured, deterministic coaching brief citing exact BQ rows and Drive playbooks."""
         lines = [
-            f"### GFS Sales Insight Manager (SIM) — Single-Turn Coaching Synthesis",
+            "### [DEMO] HarvestLine Foodservice (HLF) — Sales Insight Manager (SIM) Coaching Synthesis",
             f"- **Caller Identity (Data-Access Principal):** `{persona_meta.get('email', 'caller-oauth-principal')}` (`{persona_meta.get('id', 'USER')}: {persona_meta.get('name', 'End User')}`)",
             f"- **3LO Token Header Propagated:** `{token_source_header}` -> Forwarded to **BigQuery** (`{BILLING_PROJECT_ID}`) AND **Google Drive API v3**",
             "",
@@ -89,7 +89,7 @@ class GFSSalesInsightCoachAgent:
                 cls_diag = bq_result.get("cls_denial_diagnostic", {})
                 lines.append(
                     f"- **Column-Level Security (Policy Tag) Notice:** `{cls_diag.get('category')}` — "
-                    f"`supplier_rebate_margin_pct` was blocked by Data Catalog Policy Tag `pii_email_tag` and automatically redacted."
+                    "`supplier_rebate_margin_pct` was blocked by Data Catalog Policy Tag `pii_email_tag` and automatically redacted."
                 )
             lines.append("")
             for r in rows:
@@ -121,37 +121,37 @@ class GFSSalesInsightCoachAgent:
         if bq_status != "ERROR" and accessible_docs:
             lines.append("#### 3. Actionable Rep Coaching Plan (Blended BQ Telemetry + Drive Playbook Guidance)")
             at_risk = [r for r in bq_result.get("rows", []) if r.get("churn_risk_tier") in ("CRITICAL", "HIGH")]
-            has_exec_rebate_doc = any("GFS-EXEC-REBATE-2026-99" in d.get("content", "") for d in accessible_docs)
+            has_exec_rebate_doc = any("HLF-EXEC-REBATE-2026-99" in d.get("content", "") for d in accessible_docs)
 
             for r in at_risk:
                 lines.append(f"- **Coaching Plan for {r['assigned_rep']} on `{r['account_id']}` ({r['customer_name']}):**")
                 if r.get("late_deliveries_90d", 0) >= 2:
                     lines.append(
-                        "  1. **Apply `GFS-SOP-COACH-2026-01` Playbook A (Cold-Chain Service Recovery):** "
+                        "  1. **Apply `HLF-SOP-COACH-2026-01` Playbook A (Cold-Chain Service Recovery):** "
                         f"Schedule a 24-hour joint DSM + rep kitchen walk-through to address `{r['late_deliveries_90d']}` late cold-chain drops, "
-                        "shift to a priority morning dock window, and offer a 60-day service-level guarantee with Gordon Choice spec matching."
+                        "shift to a priority morning dock window, and offer a 60-day service-level guarantee with HarvestLine Reserve spec matching."
                     )
                 else:
                     lines.append(
-                        "  1. **Apply `GFS-SOP-COACH-2026-01` Playbook B (Drop-Size & Culinary Pairing):** "
-                        "Consolidate delivery drop size above 65 cases and pair a GFS Culinary Specialist for Clear Choice portion-cut alternatives."
+                        "  1. **Apply `HLF-SOP-COACH-2026-01` Playbook B (Drop-Size & Culinary Pairing):** "
+                        "Consolidate delivery drop size above 65 cases and pair a HarvestLine Culinary Specialist for HarvestLine Signature portion-cut alternatives."
                     )
 
                 if has_exec_rebate_doc and "supplier_rebate_margin_pct" in r:
                     margin = float(r["supplier_rebate_margin_pct"])
                     if margin >= 18.0:
                         lines.append(
-                            f"  2. **Apply `GFS-EXEC-REBATE-2026-99` Tier 1 Executive Save (Confidential Margin `{margin}% >= 18.0%`):** "
+                            f"  2. **Apply `HLF-EXEC-REBATE-2026-99` Tier 1 Executive Save (Confidential Margin `{margin}% >= 18.0%`):** "
                             "Authorized to re-invest up to **4.5% of gross invoice value** as a quarterly volume retention rebate upon 12-month Prime Vendor renewal."
                         )
                     elif margin >= 14.0:
                         lines.append(
-                            f"  2. **Apply `GFS-EXEC-REBATE-2026-99` Tier 2 Healthcare/System Save (Confidential Margin `{margin}%`):** "
+                            f"  2. **Apply `HLF-EXEC-REBATE-2026-99` Tier 2 Healthcare & Hospitality Save (Confidential Margin `{margin}%`):** "
                             "Authorized to re-invest up to **2.75% of gross invoice value** in deviated manufacturer pricing and waive fuel surcharges for 90 days."
                         )
                 elif not has_exec_rebate_doc:
                     lines.append(
-                        "  2. *Executive Rebate Tier Guidance Redacted:* Caller does not hold Google Drive ACL access to `GFS-EXEC-REBATE-2026-99`."
+                        "  2. *Executive Rebate Tier Guidance Redacted:* Caller does not hold Google Drive ACL access to `HLF-EXEC-REBATE-2026-99`."
                     )
 
         return "\n".join(lines)
@@ -173,10 +173,10 @@ class GFSSalesInsightCoachAgent:
             creds = oauth2_credentials.Credentials(token=admin_token)
             client = genai.Client(vertexai=True, project=self.project_id, location=self.location, credentials=creds)
             prompt = (
-                "You are the Gordon Food Service (GFS) Sales Insight Manager (SIM) Coaching Agent.\n"
+                "You are the [DEMO] HarvestLine Foodservice (HLF) Sales Insight Manager (SIM) Coaching Agent.\n"
                 "Using ONLY the verified BigQuery telemetry and Google Drive playbook excerpts below, "
                 "answer the user's question concisely while preserving all Account IDs, Rep names, "
-                "Document IDs (`GFS-SOP-COACH-2026-01`, `GFS-EXEC-REBATE-2026-99`), BigQuery Job IDs, "
+                "Document IDs (`HLF-SOP-COACH-2026-01`, `HLF-EXEC-REBATE-2026-99`), BigQuery Job IDs, "
                 "and any RLS/CLS/Drive ACL redaction notices.\n\n"
                 f"USER PROMPT: {user_prompt}\n\n"
                 f"VERIFIED GROUNDING DATA:\n{deterministic_brief}"
@@ -206,14 +206,14 @@ class GFSSalesInsightCoachAgent:
             "role_summary": "Governed by Caller's 3LO OAuth Token",
         }
 
-        bq_result = query_gfs_sales_performance(
+        bq_result = query_hlf_sales_performance(
             user_token=user_token,
             territory_filter=territory_filter,
             include_rebate_margin=include_rebate_margin,
             auto_fallback_on_cls_denial=True,
         )
 
-        drive_result = fetch_gfs_coaching_playbooks(user_token=user_token)
+        drive_result = fetch_hlf_coaching_playbooks(user_token=user_token)
 
         deterministic_brief = self._synthesize_deterministic_coaching_brief(
             user_prompt=user_prompt,
