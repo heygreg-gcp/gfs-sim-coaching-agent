@@ -1,0 +1,30 @@
+{
+  "project_id": "heygreg-telco-demo",
+  "dataset_id": "gfs_sim_sales",
+  "table_id": "account_performance",
+  "policy_tag": "projects/heygreg-telco-demo/locations/us/taxonomies/3838347283155594953/policyTags/499965283194771155",
+  "drive_docs": [
+    {
+      "doc_id": "1bdo9KzzJSktcIn_qAP7cAG6DPENIcLc3",
+      "gdoc_url": "https://docs.google.com/document/d/1KP1umCeq025JOg86FJEc3N4eE9KM9LGVMZP26J-LHsI/edit",
+      "title": "GFS Sales Coaching Playbook: Churn Recovery & Cold-Chain Service Drops",
+      "audience": "Standard Coaching Playbook (Shared with P1, P3, P4; Denied to P6)",
+      "shared_with": [
+        "ge-test-p1@heygreg-telco-demo.iam.gserviceaccount.com",
+        "ge-test-p3@heygreg-telco-demo.iam.gserviceaccount.com",
+        "ge-test-p4@heygreg-telco-demo.iam.gserviceaccount.com",
+        "admin@heygreg.altostrat.com"
+      ]
+    },
+    {
+      "doc_id": "1Ds3_K-voiw0gq8wA3eFsKqwNfdWzqYeW",
+      "gdoc_url": "https://docs.google.com/document/d/1WhoC6UHXb87Hi2HrpFGwA1WaBBnQn3t7hoAP4uvBEmc/edit",
+      "title": "GFS Executive Margin & Supplier Rebate Negotiation Guide [CONFIDENTIAL]",
+      "audience": "Executive Confidential Playbook (Shared ONLY with P1; Denied to P3, P4, P6)",
+      "shared_with": [
+        "ge-test-p1@heygreg-telco-demo.iam.gserviceaccount.com",
+        "admin@heygreg.altostrat.com"
+      ]
+    }
+  ]
+}

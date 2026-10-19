@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GFS Sales Insight Manager (SIM) — Cross-Project BigQuery + Google Drive Coaching Demo</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand">
+      <span class="badge-red">GFS</span>
+      <div>
+        <h1>Sales Insight Manager (SIM) — Cross-Project BQ + Drive Coaching Agent</h1>
+        <p class="subtitle">
+          Empirical Demo for Decision W1, Gaps G2 / G3a / G3b (b/568413600) &amp; b/570110182 — Live in <code>heygreg-telco-demo</code>
+        </p>
+      </div>
+    </div>
+    <div class="arch-pill">
+      <span>3LO Per-User OAuth Passthrough</span>
+      <code>X-Goog-Agent-User-Authorization</code> / <code>Authorization</code>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="controls-card">
+      <h2>1. Select Calling Persona (Live Impersonated OAuth Token)</h2>
+      <div id="persona-grid" class="persona-grid"></div>
+
+      <div class="options-row">
+        <div class="field-group">
+          <label for="header-mode">Simulated Gemini Enterprise Transport Header</label>
+          <select id="header-mode">
+            <option value="X-Goog-Agent-User-Authorization">Agent Engine V2 (X-Goog-Agent-User-Authorization)</option>
+            <option value="Authorization">Cloud Run A2A (Authorization + X-Serverless-Authorization)</option>
+          </select>
+        </div>
+
+        <div class="field-group checkbox-group">
+          <label>
+            <input type="checkbox" id="include-margin" checked />
+            Request Policy-Tagged Column (<code>supplier_rebate_margin_pct</code>)
+          </label>
+          <label>
+            <input type="checkbox" id="test-allowlist" />
+            Attempt Out-of-Scope Table Query (<code>ge_access_test_forbidden_b.forbidden_users</code>)
+          </label>
+          <label>
+            <input type="checkbox" id="use-gemini" />
+            Polish Synthesis with Vertex AI Gemini 2.5 Flash
+          </label>
+        </div>
+      </div>
+
+      <div class="prompt-row">
+        <input
+          type="text"
+          id="prompt-input"
+          value="Which accounts are at churn risk and how should I coach the assigned sales reps using our Drive playbooks?"
+        />
+        <button id="run-btn" class="primary-btn">Run Live BQ + Drive Turn</button>
+      </div>
+    </section>
+
+    <section class="results-grid">
+      <div class="panel">
+        <h2>2. Live Security &amp; Audit Proof (BigQuery + Google Drive ACLs)</h2>
+        <div id="audit-summary" class="audit-summary">
+          <p class="muted">Select a persona above and click "Run Live BQ + Drive Turn" to inspect live execution.</p>
+        </div>
+        <h3>Cross-Project BigQuery Rows Returned</h3>
+        <div id="bq-table-container" class="table-scroll"></div>
+        <h3>Google Drive v3 Playbook Access</h3>
+        <div id="drive-list-container" class="drive-list"></div>
+      </div>
+
+      <div class="panel">
+        <h2>3. Unified Single-Turn SIM Coaching Output (BQ + Drive)</h2>
+        <pre id="coaching-output" class="coaching-output">Ready.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
