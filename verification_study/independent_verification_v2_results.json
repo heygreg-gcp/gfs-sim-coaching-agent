@@ -1,0 +1,866 @@
+{
+  "timestamp": "2026-10-20T13:45:22Z",
+  "project_id": "heygreg-telco-demo",
+  "datasets": {
+    "permitted": "heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts",
+    "restricted": "heygreg-telco-demo.ge_verify_v2_restricted.census_income_records"
+  },
+  "policy_tag": "projects/heygreg-telco-demo/locations/us/taxonomies/3838347283155594953/policyTags/3911565765648031944",
+  "data_agent": "projects/heygreg-telco-demo/locations/global/dataAgents/ge_verify_v2_credit_agent",
+  "principals": {
+    "alpha": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+    "beta": "ge-v2-beta@heygreg-telco-demo.iam.gserviceaccount.com",
+    "gamma": "ge-v2-gamma@heygreg-telco-demo.iam.gserviceaccount.com",
+    "delta": "ge-v2-delta@heygreg-telco-demo.iam.gserviceaccount.com",
+    "omega": "ge-v2-omega@heygreg-telco-demo.iam.gserviceaccount.com"
+  },
+  "mcp_tests": {
+    "alpha": {
+      "safe_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"cnt\",\"type\":\"INTEGER\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_bill\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"30\"},{\"v\":\"45196.7\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"30\"},{\"v\":\"82515.27\"}]},{\"f\":[{\"v\":\"3\"},{\"v\":\"30\"},{\"v\":\"38897.6\"}]}],\"jobComplete\":true,\"queryId\":\"engukW-QjjlWuRAVVp71kiIvNgiB@1a1598f4ac8\",\"totalSlotMs\":\"8\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "engukW-QjjlWuRAVVp71kiIvNgiB@1a1598f4ac8",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "45196.7"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "2"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "82515.27"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "3"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "38897.6"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "cnt",
+                    "type": "INTEGER"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_bill",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "8"
+            }
+          }
+        }
+      },
+      "cls_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_limit\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"158000.0\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"169000.0\"}]},{\"f\":[{\"v\":\"3\"},{\"v\":\"145333.33\"}]}],\"jobComplete\":true,\"queryId\":\"VDzatPwm_5P1O6mgCZi5V_LQ5oWk!1a1598f4c65\",\"totalSlotMs\":\"4\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "VDzatPwm_5P1O6mgCZi5V_LQ5oWk!1a1598f4c65",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "158000.0"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "2"
+                    },
+                    {
+                      "v": "169000.0"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "3"
+                    },
+                    {
+                      "v": "145333.33"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_limit",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "4"
+            }
+          }
+        }
+      },
+      "restricted_dataset_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"cnt\",\"type\":\"INTEGER\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"9th\"},{\"v\":\"50\"}]}],\"jobComplete\":true,\"queryId\":\"dYorjJOTxUCiqwQhalCpW1EmgEPb!1a1598f4e22\",\"totalBytesBilled\":\"10485760\",\"totalSlotMs\":\"3\",\"totalBytesProcessed\":\"250\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "dYorjJOTxUCiqwQhalCpW1EmgEPb!1a1598f4e22",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "9th"
+                    },
+                    {
+                      "v": "50"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "cnt",
+                    "type": "INTEGER"
+                  }
+                ]
+              },
+              "totalBytesBilled": "10485760",
+              "totalBytesProcessed": "250",
+              "totalSlotMs": "3"
+            }
+          }
+        }
+      }
+    },
+    "beta": {
+      "safe_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"cnt\",\"type\":\"INTEGER\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_bill\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"30\"},{\"v\":\"45196.7\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"30\"},{\"v\":\"82515.27\"}]},{\"f\":[{\"v\":\"3\"},{\"v\":\"30\"},{\"v\":\"38897.6\"}]}],\"jobComplete\":true,\"queryId\":\"uKH_C_7tuXZNZazy7rP8HW6CWvwW^1a1598fd3fb\",\"totalSlotMs\":\"6\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "uKH_C_7tuXZNZazy7rP8HW6CWvwW^1a1598fd3fb",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "45196.7"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "2"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "82515.27"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "3"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "38897.6"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "cnt",
+                    "type": "INTEGER"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_bill",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "6"
+            }
+          }
+        }
+      },
+      "cls_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_limit\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"158000.0\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"169000.0\"}]},{\"f\":[{\"v\":\"3\"},{\"v\":\"145333.33\"}]}],\"jobComplete\":true,\"queryId\":\"R1PrI8GFQ6Ihm0aafZ_xDK-BnXRN%1a1598fd644\",\"totalSlotMs\":\"5\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "R1PrI8GFQ6Ihm0aafZ_xDK-BnXRN%1a1598fd644",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "158000.0"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "2"
+                    },
+                    {
+                      "v": "169000.0"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "3"
+                    },
+                    {
+                      "v": "145333.33"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_limit",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "5"
+            }
+          }
+        }
+      },
+      "restricted_dataset_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records: User does not have permission to query table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records, or perhaps it does not exist.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      }
+    },
+    "gamma": {
+      "safe_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"cnt\",\"type\":\"INTEGER\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_bill\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"30\"},{\"v\":\"45196.7\"}]},{\"f\":[{\"v\":\"2\"},{\"v\":\"30\"},{\"v\":\"82515.27\"}]},{\"f\":[{\"v\":\"3\"},{\"v\":\"30\"},{\"v\":\"38897.6\"}]}],\"jobComplete\":true,\"queryId\":\"IKA6FUxLSS1yztfcTvjUTxD_BJ89@1a159904f0a\",\"totalSlotMs\":\"4\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "IKA6FUxLSS1yztfcTvjUTxD_BJ89@1a159904f0a",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "45196.7"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "2"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "82515.27"
+                    }
+                  ]
+                },
+                {
+                  "f": [
+                    {
+                      "v": "3"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "38897.6"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "cnt",
+                    "type": "INTEGER"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_bill",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "4"
+            }
+          }
+        }
+      },
+      "cls_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: BigQuery BigQuery: User has neither fine-grained reader nor masked get permission to get data protected by policy tag \"ge_access_test_taxonomy : credit_limit_confidential_v2\" on column heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts.limit_balance.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      },
+      "restricted_dataset_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records: User does not have permission to query table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records, or perhaps it does not exist.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      }
+    },
+    "delta": {
+      "safe_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"cnt\",\"type\":\"INTEGER\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_bill\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"30\"},{\"v\":\"45196.7\"}]}],\"jobComplete\":true,\"queryId\":\"p60rzz006dMqaqbqm8yv6-Wfi2dc%1a15990b12d\",\"totalSlotMs\":\"50\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "p60rzz006dMqaqbqm8yv6-Wfi2dc%1a15990b12d",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "30"
+                    },
+                    {
+                      "v": "45196.7"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "cnt",
+                    "type": "INTEGER"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_bill",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "50"
+            }
+          }
+        }
+      },
+      "cls_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "{\"schema\":{\"fields\":[{\"name\":\"education_level\",\"type\":\"STRING\",\"mode\":\"NULLABLE\"},{\"name\":\"avg_limit\",\"type\":\"FLOAT\",\"mode\":\"NULLABLE\"}]},\"rows\":[{\"f\":[{\"v\":\"1\"},{\"v\":\"158000.0\"}]}],\"jobComplete\":true,\"queryId\":\"3ez93U3BVzTcp6CRtmU8tuQPTJsf%1a15990b303\",\"totalSlotMs\":\"47\"}",
+                "type": "text"
+              }
+            ],
+            "structuredContent": {
+              "jobComplete": true,
+              "queryId": "3ez93U3BVzTcp6CRtmU8tuQPTJsf%1a15990b303",
+              "rows": [
+                {
+                  "f": [
+                    {
+                      "v": "1"
+                    },
+                    {
+                      "v": "158000.0"
+                    }
+                  ]
+                }
+              ],
+              "schema": {
+                "fields": [
+                  {
+                    "mode": "NULLABLE",
+                    "name": "education_level",
+                    "type": "STRING"
+                  },
+                  {
+                    "mode": "NULLABLE",
+                    "name": "avg_limit",
+                    "type": "FLOAT"
+                  }
+                ]
+              },
+              "totalSlotMs": "47"
+            }
+          }
+        }
+      },
+      "restricted_dataset_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records: User does not have permission to query table heygreg-telco-demo:ge_verify_v2_restricted.census_income_records, or perhaps it does not exist.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      }
+    },
+    "omega": {
+      "safe_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Project heygreg-telco-demo: User does not have bigquery.jobs.create permission in project heygreg-telco-demo.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      },
+      "cls_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Project heygreg-telco-demo: User does not have bigquery.jobs.create permission in project heygreg-telco-demo.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      },
+      "restricted_dataset_query": {
+        "http_status": 200,
+        "body": {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": {
+            "content": [
+              {
+                "text": "Access Denied: Project heygreg-telco-demo: User does not have bigquery.jobs.create permission in project heygreg-telco-demo.",
+                "type": "text"
+              }
+            ],
+            "isError": true
+          }
+        }
+      }
+    }
+  },
+  "gda_tests": {
+    "alpha": {
+      "safe_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"f0931077-6e4d-49d6-bda4-deff3542ca10\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/431b4a67-93cd-4778-a486-f3762e32a990\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"f0931077-6e4d-49d6-bda4-deff3542ca10\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/431b4a67-93cd-4778-a486-f3762e32a990\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-d44091a4-b964-4299-9d97-25434288b75b\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/431b4a67-93cd-4778-a486-f3762e32a990\",\n        \"taskId\": \"f0931077-6e4d-49d6-bda4-deff3542ca10\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      },
+      "cls_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"0749207a-934d-4652-b7f5-45b999650733\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/3544f153-6d61-4be6-bead-f254a05e05ab\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"0749207a-934d-4652-b7f5-45b999650733\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/3544f153-6d61-4be6-bead-f254a05e05ab\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-ae351c38-35ea-4e80-9ef2-0621c3f99a3a\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/3544f153-6d61-4be6-bead-f254a05e05ab\",\n        \"taskId\": \"0749207a-934d-4652-b7f5-45b999650733\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      }
+    },
+    "beta": {
+      "safe_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"15bc0e00-2a6d-410b-b65a-b8767d837995\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/03b7d09c-a083-403c-8f4e-f6ea03ee5950\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"15bc0e00-2a6d-410b-b65a-b8767d837995\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/03b7d09c-a083-403c-8f4e-f6ea03ee5950\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-1699ccc1-4968-4e51-81ba-40c0b8802eb3\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/03b7d09c-a083-403c-8f4e-f6ea03ee5950\",\n        \"taskId\": \"15bc0e00-2a6d-410b-b65a-b8767d837995\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      },
+      "cls_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"33a33a9b-3e23-4b76-9873-0cfe8979fec5\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/fe2c1b73-800b-4b22-9d37-f47b3d9bc180\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"33a33a9b-3e23-4b76-9873-0cfe8979fec5\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/fe2c1b73-800b-4b22-9d37-f47b3d9bc180\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-52197192-30ff-4350-9df2-88a6fe133a5a\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/fe2c1b73-800b-4b22-9d37-f47b3d9bc180\",\n        \"taskId\": \"33a33a9b-3e23-4b76-9873-0cfe8979fec5\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      }
+    },
+    "gamma": {
+      "safe_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"78cdf1ea-5791-4e02-b193-ee665253c6e1\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/1fefa39c-547d-4fc2-844a-846e8b9c1447\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"78cdf1ea-5791-4e02-b193-ee665253c6e1\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/1fefa39c-547d-4fc2-844a-846e8b9c1447\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-5f923598-31b6-4e30-87bc-12c975d28417\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/1fefa39c-547d-4fc2-844a-846e8b9c1447\",\n        \"taskId\": \"78cdf1ea-5791-4e02-b193-ee665253c6e1\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      },
+      "cls_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"4a330ec8-3577-4397-a97c-bdf4e5a32596\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/b6656235-08e7-42c7-a0a4-10d5bb47871d\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"4a330ec8-3577-4397-a97c-bdf4e5a32596\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/b6656235-08e7-42c7-a0a4-10d5bb47871d\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-bee951bb-fb89-4930-9698-22894f6af45f\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/b6656235-08e7-42c7-a0a4-10d5bb47871d\",\n        \"taskId\": \"4a330ec8-3577-4397-a97c-bdf4e5a32596\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      }
+    },
+    "delta": {
+      "safe_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"30961151-f018-41b1-9b54-99293ab6dadc\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/e96a7f6f-2277-4208-b621-355c577e4afc\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"30961151-f018-41b1-9b54-99293ab6dadc\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/e96a7f6f-2277-4208-b621-355c577e4afc\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-f96e7b0c-c84c-4146-a066-2d7f377a9fe4\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/e96a7f6f-2277-4208-b621-355c577e4afc\",\n        \"taskId\": \"30961151-f018-41b1-9b54-99293ab6dadc\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      },
+      "cls_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"c35bbb8f-821a-4a4a-8bc6-0b0bb02a4cd4\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/be24ce04-f90d-4794-8377-fe1e109aa013\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"c35bbb8f-821a-4a4a-8bc6-0b0bb02a4cd4\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/be24ce04-f90d-4794-8377-fe1e109aa013\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-0218a89c-9135-49a4-a0e6-c521906afd35\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/be24ce04-f90d-4794-8377-fe1e109aa013\",\n        \"taskId\": \"c35bbb8f-821a-4a4a-8bc6-0b0bb02a4cd4\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      }
+    },
+    "omega": {
+      "safe_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"baf17734-e706-4bf9-8a6c-e4cd1651c446\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/2f9d0028-597a-430d-90c7-74e0ef8c8b4e\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"baf17734-e706-4bf9-8a6c-e4cd1651c446\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/2f9d0028-597a-430d-90c7-74e0ef8c8b4e\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-f22a8fd0-cc1a-472f-9d79-b933c79bf5e2\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/2f9d0028-597a-430d-90c7-74e0ef8c8b4e\",\n        \"taskId\": \"baf17734-e706-4bf9-8a6c-e4cd1651c446\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      },
+      "cls_query": {
+        "http_status": 200,
+        "snippet": "[{\n  \"task\": {\n    \"id\": \"b0185878-6ba9-4a16-b759-2b38b63caaef\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/d2baf5a2-855b-40bc-bdf5-94d8286f3613\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\"\n    }\n  }\n}\n,\r\n{\n  \"statusUpdate\": {\n    \"taskId\": \"b0185878-6ba9-4a16-b759-2b38b63caaef\",\n    \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/d2baf5a2-855b-40bc-bdf5-94d8286f3613\",\n    \"status\": {\n      \"state\": \"TASK_STATE_WORKING\",\n      \"message\": {\n        \"messageId\": \"synthetic-75e7efd9-b0cd-49ac-9700-4cd456275214\",\n        \"contextId\": \"projects/heygreg-telco-demo/locations/global/conversations/d2baf5a2-855b-40bc-bdf5-94d8286f3613\",\n        \"taskId\": \"b0185878-6ba9-4a16-b759-2b38b63caaef\",\n        \"role\": \"ROLE_AGENT\",\n        \"content\": [\n          {\n            \"text\": \"Analyzing context\",\n            \"metadata\": {\n         "
+      }
+    }
+  },
+  "okta_token_test": {
+    "http_status": 401,
+    "body": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "text": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+            "type": "text"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  "audit_log_jobs": [
+    {
+      "creation_time": "2026-10-20 13:47:23.341000+00:00",
+      "job_id": "job_OwCeQE0uUW8LRYEvLJVKqZOL_3lj",
+      "user_email": "ge-v2-delta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  credit_accounts.education_level,\n  AVG(credit_accounts.limit_balance) AS avg_limit_balance\nFROM\n  `heygreg-telc"
+    },
+    {
+      "creation_time": "2026-10-20 13:47:08.793000+00:00",
+      "job_id": "job_MbRIcl7ri5-rqVxx2yR2JyJk6akM",
+      "user_email": "ge-v2-delta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  education_level,\n  COUNT(*) AS total_accounts,\n  AVG(latest_bill_amount) AS avg_latest_bill_amount\nFROM\n  `heyg"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:57.485000+00:00",
+      "job_id": "3ez93U3BVzTcp6CRtmU8tuQPTJsf%1a15990b303",
+      "user_email": "ge-v2-delta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, ROUND(AVG(limit_balance), 2) AS avg_limit FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:56.513000+00:00",
+      "job_id": "p60rzz006dMqaqbqm8yv6-Wfi2dc%1a15990b12d",
+      "user_email": "ge-v2-delta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, COUNT(*) AS cnt, ROUND(AVG(latest_bill_amount), 2) AS avg_bill FROM `heygreg-telco-demo.ge_verif"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:41.983000+00:00",
+      "job_id": "job_ZPuzjdDwCv8WuCi7DjeziZozz553",
+      "user_email": "ge-v2-gamma@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  education_level,\n  COUNT(*) AS total_accounts,\n  AVG(latest_bill_amount) AS avg_latest_bill_amount\nFROM `heygre"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:31.451000+00:00",
+      "job_id": "IKA6FUxLSS1yztfcTvjUTxD_BJ89@1a159904f0a",
+      "user_email": "ge-v2-gamma@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, COUNT(*) AS cnt, ROUND(AVG(latest_bill_amount), 2) AS avg_bill FROM `heygreg-telco-demo.ge_verif"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:25.604000+00:00",
+      "job_id": "job__n5KSA5XMVAf3D52Tyf-cCw-Eclc",
+      "user_email": "ge-v2-beta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  education_level,\n  AVG(limit_balance) AS avg_limit_balance\nFROM `heygreg-telco-demo.ge_verify_v2_permitted.cred"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:10.748000+00:00",
+      "job_id": "job_6JCHajKXX2HWnX-Q9XmxYFHiGT3L",
+      "user_email": "ge-v2-beta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  credit_accounts.education_level,\n  COUNT(*) AS account_count,\n  AVG(credit_accounts.latest_bill_amount) AS avg_"
+    },
+    {
+      "creation_time": "2026-10-20 13:46:00.797000+00:00",
+      "job_id": "R1PrI8GFQ6Ihm0aafZ_xDK-BnXRN%1a1598fd644",
+      "user_email": "ge-v2-beta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, ROUND(AVG(limit_balance), 2) AS avg_limit FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:59.807000+00:00",
+      "job_id": "uKH_C_7tuXZNZazy7rP8HW6CWvwW^1a1598fd3fb",
+      "user_email": "ge-v2-beta@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, COUNT(*) AS cnt, ROUND(AVG(latest_bill_amount), 2) AS avg_bill FROM `heygreg-telco-demo.ge_verif"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:52.034000+00:00",
+      "job_id": "job_238iq4J6UzOR37_1odLfMMDklXg6",
+      "user_email": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  credit_accounts.education_level,\n  AVG(credit_accounts.limit_balance) AS avg_limit_balance\nFROM\n  `heygreg-telc"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:37.448000+00:00",
+      "job_id": "job_qmOdsJN5zCcfcBwLE7gEFoPBemGC",
+      "user_email": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT\n  education_level,\n  COUNT(*) AS account_count,\n  AVG(latest_bill_amount) AS avg_latest_bill_amount\nFROM\n  `heygr"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:26.198000+00:00",
+      "job_id": "dYorjJOTxUCiqwQhalCpW1EmgEPb!1a1598f4e22",
+      "user_email": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education, COUNT(*) AS cnt FROM `heygreg-telco-demo.ge_verify_v2_restricted.census_income_records` GROUP BY educa"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:25.682000+00:00",
+      "job_id": "VDzatPwm_5P1O6mgCZi5V_LQ5oWk!1a1598f4c65",
+      "user_email": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, ROUND(AVG(limit_balance), 2) AS avg_limit FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit"
+    },
+    {
+      "creation_time": "2026-10-20 13:45:24.646000+00:00",
+      "job_id": "engukW-QjjlWuRAVVp71kiIvNgiB@1a1598f4ac8",
+      "user_email": "ge-v2-alpha@heygreg-telco-demo.iam.gserviceaccount.com",
+      "statement_type": "SELECT",
+      "error_reason": null,
+      "error_message": null,
+      "query_prefix": "SELECT education_level, COUNT(*) AS cnt, ROUND(AVG(latest_bill_amount), 2) AS avg_bill FROM `heygreg-telco-demo.ge_verif"
+    }
+  ]
+}
