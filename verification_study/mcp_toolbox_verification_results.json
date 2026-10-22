@@ -1,0 +1,284 @@
+{
+  "timestamp_utc": "2026-10-22T19:58:51Z",
+  "project_id": "heygreg-telco-demo",
+  "cloud_run_service": "ge-v2-mcp-toolbox",
+  "cloud_run_url": "https://ge-v2-mcp-toolbox-orqiwfkmpq-uc.a.run.app",
+  "mcp_endpoint": "https://ge-v2-mcp-toolbox-orqiwfkmpq-uc.a.run.app/mcp",
+  "toolbox_service_account": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+  "caller_principal": "ge-v2-omega@heygreg-telco-demo.iam.gserviceaccount.com",
+  "caller_bigquery_iam_roles": "NONE (Zero BigQuery roles)",
+  "configured_allowed_datasets": [
+    "heygreg-telco-demo.ge_verify_v2_permitted"
+  ],
+  "setup": {
+    "shared_table_created": "heygreg-telco-demo.ge_verify_v2_permitted.shared_credit_summary",
+    "toolbox_sa_dataset_iam": [
+      "ge_verify_v2_permitted",
+      "ge_verify_v2_restricted"
+    ],
+    "cloud_run_invokers": [
+      "ge-v2-omega@heygreg-telco-demo.iam.gserviceaccount.com",
+      "service-395808028747@gcp-sa-discoveryengine.iam.gserviceaccount.com",
+      "admin@heygreg.altostrat.com"
+    ]
+  },
+  "tests": {
+    "M1_initialize_and_list_tools": {
+      "assertion": "Caller with ZERO BigQuery IAM roles (ge-v2-omega) and no BigQuery OAuth token can initialize MCP session and list read-only tools.",
+      "server_info": {
+        "name": "Toolbox",
+        "version": "1.14.0+container.release.linux.amd64.6b743ef"
+      },
+      "tool_names": [
+        "execute_sql",
+        "get_table_info",
+        "list_dataset_ids",
+        "list_table_ids"
+      ],
+      "tool_annotations": {
+        "execute_sql": {
+          "readOnlyHint": true
+        },
+        "get_table_info": {
+          "readOnlyHint": true
+        },
+        "list_dataset_ids": {
+          "readOnlyHint": true
+        },
+        "list_table_ids": {
+          "readOnlyHint": true
+        }
+      },
+      "status": "PASS"
+    },
+    "M2_list_dataset_ids_scoping": {
+      "assertion": "list_dataset_ids returns ONLY ge_verify_v2_permitted and hides ge_verify_v2_restricted (even though the Cloud Run SA has dataViewer on ge_verify_v2_restricted).",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "[\"heygreg-telco-demo.ge_verify_v2_permitted\"]"
+          }
+        ]
+      }
+    },
+    "M3_metadata_tools_dataset_guardrail": {
+      "assertion": "list_table_ids and get_table_info succeed on ge_verify_v2_permitted and are blocked on ge_verify_v2_restricted.",
+      "allowed_list_table_ids": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\"credit_accounts\""
+          },
+          {
+            "type": "text",
+            "text": "\"shared_credit_summary\""
+          }
+        ]
+      },
+      "denied_list_table_ids": {
+        "content": [
+          {
+            "type": "text",
+            "text": "access denied to dataset 'ge_verify_v2_restricted' because it is not in the configured list of allowed datasets for project 'heygreg-telco-demo'"
+          }
+        ],
+        "isError": true
+      },
+      "allowed_get_table_info_preview": "{'content': [{'type': 'text', 'text': '{\"Name\":\"\",\"Location\":\"US\",\"Description\":\"\",\"Schema\":[{\"Name\":\"education_level\",\"Description\":\"\",\"Repeated\":false,\"Required\":false,\"Type\":\"STRING\",\"PolicyTags\":null,\"Schema\":null,\"MaxLength\":0,\"Precision\":0,\"Scale\":0,\"DefaultValueExpression\":\"\",\"Collation\":\"\",\"RangeElementType\":null,\"RoundingMode\":\"\",\"TimestampPrecision\":0},{\"Name\":\"account_count\",\"Descriptio",
+      "denied_get_table_info": {
+        "content": [
+          {
+            "type": "text",
+            "text": "access denied to dataset 'ge_verify_v2_restricted' because it is not in the configured list of allowed datasets for project 'heygreg-telco-demo'"
+          }
+        ],
+        "isError": true
+      }
+    },
+    "M4_execute_sql_allowed_shared_table": {
+      "assertion": "Zero-BQ-IAM caller (ge-v2-omega) can execute SELECT on allowed shared table via Cloud Run SA ADC without per-user BigQuery auth.",
+      "sql": "SELECT education_level, account_count, avg_bill_amount, avg_holder_age FROM `heygreg-telco-demo.ge_verify_v2_permitted.shared_credit_summary` ORDER BY education_level",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"1\",\"account_count\":30,\"avg_bill_amount\":45196.7,\"avg_holder_age\":33.2}"
+          },
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"2\",\"account_count\":30,\"avg_bill_amount\":82515.27,\"avg_holder_age\":32.4}"
+          },
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"3\",\"account_count\":30,\"avg_bill_amount\":38897.6,\"avg_holder_age\":41.1}"
+          }
+        ]
+      }
+    },
+    "M5_execute_sql_denied_restricted_dataset": {
+      "assertion": "Direct SELECT on ge_verify_v2_restricted is hard-blocked by MCP Toolbox dry-run table inspection, even though the Cloud Run SA has IAM dataViewer on ge_verify_v2_restricted.",
+      "sql": "SELECT income_bracket, COUNT(*) AS cnt FROM `heygreg-telco-demo.ge_verify_v2_restricted.census_income_records` GROUP BY 1",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "access to dataset 'heygreg-telco-demo.ge_verify_v2_restricted' is not allowed"
+          }
+        ],
+        "isError": true
+      }
+    },
+    "M6_execute_sql_cross_dataset_join_smuggling_blocked": {
+      "assertion": "Cross-dataset subquery joining allowed dataset with disallowed dataset is caught by dry-run query plan inspection and blocked.",
+      "sql": "SELECT a.education_level, a.account_count FROM `heygreg-telco-demo.ge_verify_v2_permitted.shared_credit_summary` a WHERE EXISTS (SELECT 1 FROM `heygreg-telco-demo.ge_verify_v2_restricted.census_income_records` b WHERE b.age > 30)",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "access to dataset 'heygreg-telco-demo.ge_verify_v2_restricted' is not allowed"
+          }
+        ],
+        "isError": true
+      }
+    },
+    "M7_execute_sql_dynamic_sql_blocked": {
+      "assertion": "EXECUTE IMMEDIATE dynamic SQL is statically blocked when allowedDatasets is configured.",
+      "sql": "EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM `heygreg-telco-demo.ge_verify_v2_restricted.census_income_records`'",
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "could not safely analyze query with dataset restrictions: EXECUTE IMMEDIATE is not allowed when dataset restrictions are in place"
+          }
+        ],
+        "isError": true
+      }
+    },
+    "M8_execute_sql_write_mode_blocked": {
+      "assertion": "DML/DDL write queries (DELETE/INSERT/DROP) on allowed dataset are blocked by readOnly: true / writeMode: blocked even if the SA is over-permissioned with WRITER.",
+      "sql": "DELETE FROM `heygreg-telco-demo.ge_verify_v2_permitted.shared_credit_summary` WHERE false",
+      "response_with_reader_iam": {
+        "code": -32603,
+        "message": "failed to access GCP resource: failed to insert dry run job: googleapi: Error 403: Access Denied: Table heygreg-telco-demo:ge_verify_v2_permitted.shared_credit_summary: Permission bigquery.tables.updateData denied on table heygreg-telco-demo:ge_verify_v2_permitted.shared_credit_summary (or it may not exist)., accessDenied"
+      },
+      "response_with_writer_iam_proving_toolbox_guardrail": {
+        "content": [
+          {
+            "type": "text",
+            "text": "write mode is 'blocked', only SELECT statements are allowed"
+          }
+        ],
+        "isError": true
+      }
+    },
+    "M9_service_account_mode_rls_and_cls_behavior": {
+      "assertion": "In Service Account ADC mode (useClientOAuth: false), BigQuery evaluates Row-Level Security and Column-Level Security against the Cloud Run Service Account (not the individual user).",
+      "rls_query": "SELECT education_level, COUNT(*) AS rows_visible FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts` GROUP BY education_level",
+      "rls_response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\"The query returned 0 rows.\""
+          }
+        ]
+      },
+      "cls_query": "SELECT AVG(limit_balance) AS avg_limit FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts`",
+      "cls_response": {
+        "code": -32603,
+        "message": "failed to access GCP resource: failed to insert dry run job: googleapi: Error 403: Access Denied: BigQuery BigQuery: User has neither fine-grained reader nor masked get permission to get data protected by policy tag \"ge_access_test_taxonomy : credit_limit_confidential_v2\" on column heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts.limit_balance., accessDenied"
+      }
+    },
+    "M10_bigquery_audit_log_attribution": {
+      "assertion": "All BigQuery jobs executed via MCP Toolbox in useClientOAuth: false mode are attributed in INFORMATION_SCHEMA.JOBS to ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com (not the calling user ge-v2-omega@heygreg-telco-demo.iam.gserviceaccount.com).",
+      "jobs_found": 5,
+      "recent_jobs": [
+        {
+          "job_id": "3UnFV05rh7aR3Colsik9Uowzlib",
+          "user_email": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+          "statement_type": "SELECT",
+          "labels": [
+            {
+              "key": "mcp-toolbox-tool",
+              "value": "bigquery-execute-sql"
+            }
+          ],
+          "query_snippet": "SELECT education_level, COUNT(*) AS rows_visible FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts` GROUP ",
+          "creation_time": "2026-10-22T19:59:00.244000+00:00"
+        },
+        {
+          "job_id": "TEwdh8MnrkGhMbfRrmHk8oim7mY",
+          "user_email": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+          "statement_type": "SELECT",
+          "labels": [
+            {
+              "key": "mcp-toolbox-tool",
+              "value": "bigquery-execute-sql"
+            }
+          ],
+          "query_snippet": "SELECT education_level, account_count, avg_bill_amount, avg_holder_age FROM `heygreg-telco-demo.ge_verify_v2_permitted.s",
+          "creation_time": "2026-10-22T19:58:52.421000+00:00"
+        },
+        {
+          "job_id": "366ZezwVNGy4VJIMgGyn2ehP5dc",
+          "user_email": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+          "statement_type": "SELECT",
+          "labels": [
+            {
+              "key": "mcp-toolbox-tool",
+              "value": "bigquery-execute-sql"
+            }
+          ],
+          "query_snippet": "SELECT education_level, COUNT(*) AS rows_visible FROM `heygreg-telco-demo.ge_verify_v2_permitted.credit_accounts` GROUP ",
+          "creation_time": "2026-10-22T19:56:00.183000+00:00"
+        },
+        {
+          "job_id": "OKkEl9WFgrkCLPd6VhZ1f2CAKgI",
+          "user_email": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+          "statement_type": "SELECT",
+          "labels": [
+            {
+              "key": "mcp-toolbox-tool",
+              "value": "bigquery-execute-sql"
+            }
+          ],
+          "query_snippet": "SELECT education_level, account_count, avg_bill_amount, avg_holder_age FROM `heygreg-telco-demo.ge_verify_v2_permitted.s",
+          "creation_time": "2026-10-22T19:55:58.375000+00:00"
+        },
+        {
+          "job_id": "NXdMWD6wY0UMm9VqoFVsrQlSlnf",
+          "user_email": "ge-v2-mcp-toolbox-sa@heygreg-telco-demo.iam.gserviceaccount.com",
+          "statement_type": "SELECT",
+          "labels": [
+            {
+              "key": "mcp-toolbox-tool",
+              "value": "bigquery-execute-sql"
+            }
+          ],
+          "query_snippet": "SELECT education_level, account_count, avg_bill_amount, avg_holder_age FROM `heygreg-telco-demo.ge_verify_v2_permitted.s",
+          "creation_time": "2026-10-22T19:55:21.386000+00:00"
+        }
+      ]
+    },
+    "M11_gemini_enterprise_no_auth_x_serverless_header": {
+      "assertion": "When Gemini Enterprise invokes a Cloud Run Custom MCP Server with NO_AUTH (skip_auth=true), it sends ONLY X-Serverless-Authorization: Bearer <id_token> and no Authorization header; Cloud Run authenticates the invoker and MCP Toolbox executes via SA ADC.",
+      "http_status": 200,
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"1\",\"account_count\":30,\"avg_bill_amount\":45196.7,\"avg_holder_age\":33.2}"
+          },
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"2\",\"account_count\":30,\"avg_bill_amount\":82515.27,\"avg_holder_age\":32.4}"
+          },
+          {
+            "type": "text",
+            "text": "{\"education_level\":\"3\",\"account_count\":30,\"avg_bill_amount\":38897.6,\"avg_holder_age\":41.1}"
+          }
+        ]
+      }
+    }
+  }
+}
